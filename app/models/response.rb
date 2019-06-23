@@ -18,7 +18,8 @@ class Response < ApplicationRecord
     through: :answer_choice,
     source: :question
   
-  validate :not_duplicate_response
+  validate :does_not_respond_to_own_poll
+  validate :not_duplicate_response, 
 
   def sibling_responses
     sib_responses = self
@@ -36,6 +37,18 @@ class Response < ApplicationRecord
   def not_duplicate_response
     if respondent_already_answered?
       errors[:base] << 'User has already made a response'
+    end
+  end
+
+  def does_not_respond_to_own_poll
+    poll_author = self
+      .answer_choice.
+      .question
+      .poll
+      .author
+
+    if poll_author.id == self.user_id
+      errors[:base] << 'Cannot respond to own poll'
     end
   end
 end
