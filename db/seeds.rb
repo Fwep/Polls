@@ -32,10 +32,10 @@ ActiveRecord::Base.transaction do
   ac6 = AnswerChoice.create!(choice: "Superman", question_id: q2.id)
   ac7 = AnswerChoice.create!(choice: "Elon Musk", question_id: q2.id)
 
-  r1 = Response.create!(
-    respondent: u1,
-    answer_choice: ac1
-  )
+  # r1 = Response.create!(
+  #   respondent: u1,
+  #   answer_choice: ac1
+  # )
 
   r2 = Response.create!(
     respondent: u2,
@@ -58,19 +58,19 @@ ActiveRecord::Base.transaction do
   )
 
   r6 = Response.create!(
-    respondent: u1, answer_choice: ac1
+    respondent: u1, answer_choice: ac4
   )
 
   r7 = Response.create!(
-    respondent: u2, answer_choice: ac1
+    respondent: u2, answer_choice: ac4
   )
-  r8 = Response.create!(
-    respondent: u3, answer_choice: ac1
-  )
+  # r8 = Response.create!(
+  #   respondent: u3, answer_choice: ac3
+  # )
   r9 = Response.create!(
-    respondent: u4, answer_choice: ac3
+    respondent: u4, answer_choice: ac5
   )
   r10 = Response.create!(
-    respondent: u5, answer_choice: ac2
+    respondent: u5, answer_choice: ac7
   )
 end
