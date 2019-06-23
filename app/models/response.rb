@@ -18,8 +18,8 @@ class Response < ApplicationRecord
     through: :answer_choice,
     source: :question
   
-  validate :does_not_respond_to_own_poll
-  validate :not_duplicate_response, 
+  validate :does_not_respond_to_own_poll, unless: -> { answer_choice.nil? }
+  validate :not_duplicate_response, unless: -> { answer_choice.nil? }
 
   def sibling_responses
     sib_responses = self
@@ -42,7 +42,7 @@ class Response < ApplicationRecord
 
   def does_not_respond_to_own_poll
     poll_author = self
-      .answer_choice.
+      .answer_choice
       .question
       .poll
       .author
