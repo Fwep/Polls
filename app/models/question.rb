@@ -20,7 +20,21 @@ class Question < ApplicationRecord
 
   validates :question, presence: true, uniqueness: false
 
-  def results
-    
+  def n_plus_one_results
+    results_hash = {}
+    self.answer_choices.each do |choice|
+      results_hash[choice.choice] = choice.responses.count
+    end
+
+    results_hash
   end
+
+  def results
+    self
+      .answer_choices
+      .select('answer_choices.choice')
+      .left_outer_joins(:responses)
+      .group('answer_choices.choice')
+      .count
+    end
 end
